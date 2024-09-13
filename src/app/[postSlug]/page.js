@@ -8,8 +8,23 @@ import styles from './postSlug.module.css';
 
 import { loadBlogPost } from '@/helpers/file-helpers';
 
+
+export const getPostData = React.cache(async (postSlug) => {
+  return await loadBlogPost(postSlug);
+});
+
+export async function generateMetadata({ params }, parent) { 
+  const metadata = await getPostData(params.postSlug);
+
+  return {
+    title: metadata.frontmatter.title,
+    description: metadata.frontmatter.abstract
+  }
+}
+
+
 async function BlogPost({ params }) {
-  const post = await loadBlogPost(params.postSlug)
+  const post = await getPostData(params.postSlug)
 
   return (
     <article className={styles.wrapper}>
