@@ -10,7 +10,8 @@ function CodeSnippet(props) {
       {...props}
       theme={theme}
       className={styles.wrapper}
-    />
+    >
+    </Code>
   );
 }
 
